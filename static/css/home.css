@@ -1,0 +1,45 @@
+h1 {
+    text-align: center;
+}
+
+.save-slots {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.save-slot {
+    background-color: #e5e5e5;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    min-height: 220px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.save-info {
+    height: 55px;
+}
+
+.save-info p {
+    margin: 8px 0;
+}
+
+.save-buttons {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.save-slot button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Market</title>
+
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/market.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="market-layout">
+
+            <div class="left-sidebar">
+
+                <div class="status-bar">
+                    <h2>Farm Info</h2>
+
+                    <div class="status-box">
+                        <div class="status-item">
+                            <span>Day</span>
+                            <strong id="current-day">-</strong>
+                        </div>
+
+                        <div class="status-item">
+                            <span>Money</span>
+                            <strong>$<span id="current-money">-</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="missions-box">
+
+                    <div class="missions">
+                        <h2>Missions</h2>
+
+                        <div id="missions-list">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="market">
+                    <h2>Market Prices</h2>
+
+                    <div id="market-prices">
+                        Loading...
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="history">
+                <h2 id="history-title">History</h2>
+                
+                <div class="price-info">
+                    <div>
+                        Current
+                        <strong id="current-price">$0</strong>
+                    </div>
+                    <div>
+                        60-Day High
+                        <strong id="high-price">$0</strong>
+                    </div>
+                    <div>
+                        60-Day Low
+                        <strong id="low-price">$0</strong>
+                    </div>
+                </div>
+
+            <canvas id="price-chart"></canvas>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="main-menu-layout">
+
+        <div class="main-menu">
+            <button class="farm-button" onclick="location.href='/game'">Farm</button>
+
+            <button class="shop-button" onclick="location.href='/shop'">Shop</button>
+
+            <button class="market-button" onclick="location.href='/market-page'">Market</button>
+
+        </div>
+
+        <div class="other-menu">
+            <button class="other-button">Other</button>
+
+            <button class="other-button">Other</button>
+
+            <button class="home-button" onclick="location.href='/'">Home</button>
+            
+        </div>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/market_common.js"></script>
+    <script src="/static/js/market.js"></script>
+
+</body>
+</html>

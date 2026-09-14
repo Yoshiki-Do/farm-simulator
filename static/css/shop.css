@@ -1,0 +1,43 @@
+.shop-main {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #e5e5e5;
+}
+
+.shop-main h2 {
+    margin: 5px;
+}
+
+.seed-shop-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.seed-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.seed-item span {
+    font-size: 18px;
+}
+
+.seed-item strong {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.shop-main button {
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}

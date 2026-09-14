@@ -1,0 +1,276 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    padding-bottom: 140px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Layout */
+.farm-layout,
+.shop-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    gap: 20px;
+    align-items: stretch;
+    height: 710px;
+}
+
+.farm,
+.shop-main {
+    min-width: 0;
+}
+
+/* Main Menu */
+.main-menu-layout {
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.main-menu,
+.other-menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.main-menu {
+    border-top: 1px solid #ccc;
+    background-color: #e5e5e5;
+}
+
+.other-menu {
+    background-color: #ddd;
+}
+
+.main-menu button,
+.other-menu button {
+    width: 120px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Side Bar */
+.left-sidebar,
+.right-sidebar {
+    align-self: stretch;
+    height: 710px;
+    box-sizing: border-box;
+}
+
+.left-sidebar > .status-bar,
+.right-sidebar > .inventory {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #e5e5e5;
+}
+
+.left-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.right-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Status */
+.status-bar h2 {
+    margin: 5px;
+}
+
+.status-box {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: white;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.status-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Mission */
+.missions-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #e5e5e5;
+}
+
+.missions h2 {
+    margin: 5px;
+}
+
+#missions-list {
+    height: 210px;
+    overflow-y: auto;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.mission {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.mission:last-child {
+    border-bottom: none;
+}
+
+.mission > div:not(.mission-title):not(.mission-progress) {
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.mission-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    align-items: center;
+}
+
+.mission-title strong {
+    display: block;
+    font-size: 12px;
+}
+
+.mission-title span {
+    font-size: 12px;
+}
+
+.deadline-warning {
+    color: #d4a000;
+    font-weight: bold;
+}
+
+.deadline-danger {
+    color: red;
+    font-weight: bold;
+}
+
+.mission-progress {
+    width: 100%;
+    height: 12px;
+    margin: 8px 0;
+    background-color: #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.mission-progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 6px;
+}
+
+/* Market */
+.market {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #e5e5e5;
+}
+
+.market h2 {
+    margin: 5px;
+}
+
+.market-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.market-item-info img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+#market-prices {
+    height: 210px;
+    overflow-y: auto;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.market-price {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.market-price > span {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Inventory */
+.inventory h2 {
+    margin: 5px;
+}
+
+.inventory-box {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: white;
+}
+
+#inventory-items {
+    height: 625px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.inventory-item {
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+
+.inventory-item span {
+    display: inline-block;
+}
+
+.inventory-item strong {
+    float: right;
+}
+
+.inventory-item:last-child {
+    margin-bottom: 0;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farm Simulator</title>
+
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/farm.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="farm-layout">
+
+            <div class="left-sidebar">
+
+                <div class="status-bar">
+                    <h2>Farm Info</h2>
+                    
+                    <div class="status-box">
+                        <div class="status-item">
+                            <span>Day</span>
+                            <strong id="current-day">-</strong>
+                        </div>
+                        
+                        <div class="status-item">
+                            <span>Money</span>
+                            <strong>$<span id="current-money">-</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="missions-box">
+
+                    <div class="missions">
+                        <h2>Missions</h2>
+
+                        <div id="missions-list">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="market">
+                    <h2>Market Prices</h2>
+                    <div id="market-prices">
+                        Loading...
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="farm">
+                <h2>Farm</h2>
+
+                <div class="seed-selection">
+                    <h3>Seeds</h3>
+                    <div id="plant-controls" class="plant-controls">
+                    </div>
+                </div>
+
+                <div class="action-controls">
+                    <h3>Actions</h3>
+                    <div class="action-buttons">
+                        <button id="fertilize-button" onclick="fertilizePlot()">Fertilize</button>
+                        <button class="next-day-button" onclick="nextDay()">Next Day</button>
+                    </div>
+                </div>
+                <div id="farm-grid" class="farm-grid">
+                    Loading...
+                </div>
+            </div>
+
+            <div class="right-sidebar">
+                <div class="inventory">
+                    <h2>Inventory</h2>
+                    <div class="inventory-box">
+                        <div id="inventory-items">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-menu-layout">
+
+        <div class="main-menu">
+            <button class="farm-button" onclick="location.href='/game'">Farm</button>
+
+            <button class="shop-button" onclick="location.href='/shop'">Shop</button>
+
+            <button class="market-button" onclick="location.href='/market-page'">Market</button>
+
+        </div>
+
+        <div class="other-menu">
+            <button class="other-button">Other</button>
+
+            <button class="other-button">Other</button>
+
+            <button class="home-button" onclick="location.href='/'">Home</button>
+            
+        </div>
+
+    </div>
+
+
+    <template id="farm-plot-template">
+
+        <div class="farm-plot">
+
+            <div class="plot-info">
+
+                <div class="plot-image">
+
+                    <img class="crop-image">
+
+                    <div class="plot-crop-name"></div>
+
+                    <div class="fertilizer-bar">
+                        <div class="fertilizer-progress"></div>
+                    </div>
+
+                    <div class="growth-bar">
+                        <div class="growth-progress"></div>
+                    </div>
+
+                </div>
+
+                <div class="growth-percent"></div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <script src="/static/js/api.js"></script>    
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/market_common.js"></script>
+    <script src="/static/js/inventory.js"></script>
+    <script src="/static/js/farm.js"></script>
+</body>
+</html>

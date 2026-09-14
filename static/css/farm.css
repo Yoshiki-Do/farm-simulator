@@ -1,0 +1,217 @@
+/* Sell Function */
+.inventory-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.inventory-controls input {
+    width: 70px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.inventory-controls button {
+    padding: 5px 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.inventory-controls button:hover {
+    opacity: 0.8;
+}
+
+/* Farm */
+.farm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #e5e5e5;
+}
+
+.farm h2 {
+    margin: 5px
+}
+
+.seed-selection,
+.action-controls {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.seed-selection h3,
+.action-controls h3 {
+    margin: 0 0 10px;
+}
+
+.seed-selection button,
+.action-controls button {
+    background-color: #ddd;
+    padding: 7px 14px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.seed-selection button:hover,
+.action-controls button:hover {
+    opacity: 0.8;
+}
+
+.seed-selection button.selected {
+    font-weight: bold;
+    transform: scale(1.05);
+    background-color: #aaa;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 8px;
+    justify-content: center;
+}
+
+.action-buttons button {
+    width: 80px;
+    height: 35px;
+    margin: 0;
+}
+
+.farm-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 64px);
+    gap: 1px;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+.farm-plot {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    cursor: pointer;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.farm-plot img {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.plot-info {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.plot-crop-name {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.plot-image {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.plot-image img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.growth-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+
+.growth-progress {
+    height: 100%;
+    background-color: #4caf50;
+}
+
+.growth-progress.ready {
+    background-color: #f0a000;
+}
+
+.fertilizer-bar {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-color: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.fertilizer-progress {
+    height: 100%;
+    background-color: #8bc34a;
+}
+
+.growth-percent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    font-size: 7px;
+    text-align: center;
+}
+
+.plant-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 8px;
+    height: 78px;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.plant-controls button {
+    width: 80px;
+    height: 35px;
+    margin: 0;
+}
+
+.next-day-button {
+    margin-top: 0;
+}
