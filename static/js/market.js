@@ -59,13 +59,13 @@ function drawChart(history, maxPrice) {
     ctx.stroke();
 
     // Draw axis labels
-    ctx.font = "14px Arial";
+    ctx.font = "12px Arial";
     ctx.textAlign = "center";
 
     ctx.fillText(
         "Day",
         width / 2,
-        height - 15
+        height - 25
     );
 
     ctx.save();
@@ -86,7 +86,6 @@ function drawChart(history, maxPrice) {
     ctx.textAlign = "right";
 
     const tickCount = 5;
-
     for (let i = 0; i <= tickCount; i++) {
 
         const price =
@@ -109,25 +108,27 @@ function drawChart(history, maxPrice) {
     // Draw X-axis ticks
     ctx.textAlign = "center";
 
-    const tickInterval = Math.ceil(history.length / 6);
-    history.forEach((item, index) => {
+    const xTickCount = Math.min(history.length, 5);
+    for (let i = 0; i < xTickCount; i++) {
 
-        if (index % tickInterval !== 0 && index !== history.length - 1) {
-            return;
-        }
+    const index = Math.round(
+        i * (history.length - 1) / Math.max(xTickCount - 1, 1)
+    );
 
-        const x =
-            padding +
-            index *
-            ((width - padding * 2) /
-            Math.max(history.length - 1, 1));
+    const item = history[index];
 
-        ctx.fillText(
-            `Day ${item.day}`,
-            x,
-            height - padding + 20
-        );
-    });
+    const x =
+        padding +
+        index *
+        ((width - padding * 2) /
+        Math.max(history.length - 1, 1));
+
+    ctx.fillText(
+        `${item.day}`,
+        x,
+        height - padding + 20
+    );
+}
 
     // Draw graph
     ctx.beginPath();
@@ -200,7 +201,93 @@ function updatePriceInfo(history) {
     document.getElementById("low-price").textContent = `$${lowPrice.toFixed(2)} /kg`;
 }
 
+async function loadCrops() {
+    const data = await getFarmData();
+
+    if (data === null) {
+        return;
+    }
+
+    const container = document.getElementById("market-crops");
+    container.innerHTML = "";
+
+    const crops = data.inventory
+        .filter(item => item.type === "crop" && item.quantity > 0)
+        .sort((a, b) => a.name.localeCompare(b.name));
+    
+        crops.forEach(item => {
+            const element = document.createElement("div");
+            element.className = "market-crop";
+
+            const image = document.createElement("img");
+            image.src = `/static/images/${item.item}/${item.item}.png`;
+
+            const quantity = document.createElement("strong");
+            quantity.textContent = `${item.quantity.toFixed(2)} kg`;
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.min = 0.01;
+            input.max = item.quantity;
+            input.step = "0.01";
+            input.placeholder = "kg";
+
+            const maxButton = document.createElement("button");
+            maxButton.textContent = "Max";
+
+            maxButton.onclick = () => {
+                input.value = item.quantity.toFixed(2);
+            };
+
+            const sellButton = document.createElement("button");
+            sellButton.textContent = "Sell";
+
+            sellButton.onclick = () => {
+                const amount = parseFloat(input.value);
+
+                if (isNaN(amount) || amount <= 0) {
+                    alert("Enter a valid amount.");
+                    return;
+                }
+
+                if (amount > item.quantity) {
+                    alert("Not enough crop in inventory.");
+                    return;
+                }
+
+                sellCrop(item.item, amount);
+            };
+
+            const controls =document.createElement("div");
+            controls.className = "market-crop-controls";
+
+            controls.appendChild(input);
+            controls.appendChild(maxButton);
+            controls.appendChild(sellButton);
+
+            element.appendChild(image);
+            element.appendChild(quantity);
+            element.appendChild(controls);
+
+            container.appendChild(element);
+        });
+}
+
+async function sellCrop(item, amount) {
+    const farmId = localStorage.getItem("farmId");
+    const data = await apiRequest(`/market/sell/${item}?amount=${amount}&farm_id=${farmId}`, {method: "POST"});
+
+    if (data === null)
+        return;
+
+    await loadFarmInfo();
+    await loadCrops();
+    await loadMarket();
+    await loadHistory();
+}
+
 loadFarmInfo();
 loadMissions();
 loadMarket();
 loadHistory();
+loadCrops();

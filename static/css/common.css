@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
     margin: 0;
+    overflow-y: scroll;
 }
 
 .container {
@@ -9,11 +10,6 @@ body {
     margin: 20px auto;
     padding: 20px;
     padding-bottom: 140px;
-}
-
-.back-button {
-    padding: 10px 20px;
-    cursor: pointer;
 }
 
 /* Layout */
@@ -88,7 +84,6 @@ body {
 .right-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 /* Status */
@@ -256,19 +251,52 @@ body {
     height: 625px;
     box-sizing: border-box;
     overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    justify-content: center;
+    align-content: start;
+}
+
+#inventory-items h3 {
+    grid-column: 1 / -1;
+    margin: 5px 0;
 }
 
 .inventory-item {
-    margin-bottom: 12px;
+    width: 32px;
+    height: 32px;
     font-size: 12px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: white;
 }
 
-.inventory-item span {
+.inventory-image {
+    position: relative;
     display: inline-block;
 }
 
-.inventory-item strong {
-    float: right;
+.inventory-image img {
+    display: block;
+}
+
+.inventory-image strong {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding: 2px 4px;
+    font-size: 9px;
+}
+
+.inventory-item img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    display: block;
+    margin: 0 auto;
 }
 
 .inventory-item:last-child {

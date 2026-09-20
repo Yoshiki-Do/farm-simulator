@@ -1,4 +1,4 @@
-async function loadInventory(onSell = null, data = null) {
+async function loadInventory(data = null) {
     if (data === null) {
         data = await getFarmData();
     }
@@ -27,8 +27,10 @@ async function loadInventory(onSell = null, data = null) {
             const element = document.createElement("div");
             element.className = "inventory-item";
             element.innerHTML = `
-                <span>${item.name} seed</span>
-                <strong>x ${item.quantity}</strong>`;
+                <div class="inventory-image">
+                    <img src="/static/images/${item.item}/${item.item}_seed.png">
+                    <strong>x ${item.quantity}</strong>
+                </div>`;
             container.appendChild(element);
         });
     }
@@ -42,58 +44,11 @@ async function loadInventory(onSell = null, data = null) {
             const element = document.createElement("div");
             element.className = "inventory-item";
 
-            const name = document.createElement("span");
-            name.textContent = item.name;
-
-            const quantity = document.createElement("strong");
-            quantity.textContent = `${item.quantity.toFixed(2)} kg`;
-
-            element.appendChild(name);
-            element.appendChild(quantity);
-
-            if (onSell !== null && item.quantity > 0) {
-                const input = document.createElement("input");
-                input.type = "number";
-                input.min = 0.01;
-                input.max = item.quantity;
-                input.step = "0.01";
-                input.placeholder = "kg";
-
-                const maxButton = document.createElement("button");
-                maxButton.textContent = "Max";
-
-                maxButton.onclick = () => {
-                    input.value = item.quantity.toFixed(2);
-                };
-
-                const sellButton = document.createElement("button");
-                sellButton.textContent = "Sell";
-
-                sellButton.onclick = () => {
-                    const amount = parseFloat(input.value);
-
-                    if (isNaN(amount) || amount <= 0) {
-                        alert("Enter a valid amount.");
-                        return;
-                    }
-
-                    if (amount > item.quantity) {
-                        alert("Not enough crop in inventory.");
-                        return;
-                    }
-
-                    onSell(item.item, amount);
-                };
-
-                const controls =document.createElement("div");
-                controls.className = "inventory-controls";
-
-                controls.appendChild(input);
-                controls.appendChild(maxButton);
-                controls.appendChild(sellButton);
-
-                element.appendChild(controls);
-            }
+            element.innerHTML = `
+                <div class="inventory-image">
+                    <img src="/static/images/${item.item}/${item.item}.png">
+                    <strong>${item.quantity.toFixed(2)}kg</strong>
+                </div>`;
             
             container.appendChild(element);
         });
@@ -108,8 +63,10 @@ async function loadInventory(onSell = null, data = null) {
             const element = document.createElement("div");
             element.className = "inventory-item";
             element.innerHTML = `
-                <span>${item.name}</span>
-                <strong>x ${item.quantity}</strong>`;
+                <div class="inventory-image">
+                    <img src="/static/images/items/${item.item}.png">
+                    <strong>x ${item.quantity}</strong>
+                </div>`;
             container.appendChild(element);
         });
     }

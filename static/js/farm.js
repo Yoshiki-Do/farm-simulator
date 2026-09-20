@@ -4,7 +4,7 @@ async function initializeGame() {
     const data = await getFarmData();
 
     await loadFarm(data);
-    await loadInventory(sellItem, data);
+    await loadInventory(data);
     await loadMarket();
     await loadMissions();
 }
@@ -34,7 +34,7 @@ function selectPlant(crop) {
 
 async function refreshFarm() {
     await loadFarm();
-    await loadInventory(sellItem);
+    await loadInventory();
 }
 
 async function loadFarm(data = null) {
@@ -87,8 +87,6 @@ function createPlotElement(plot) {
         const cropImage = getCropImage(plot.crop, growthPercent);
 
         cropName.textContent = plot.crop;
-        console.log("crop:", plot.crop);
-        console.log("image:", `/static/images/${plot.crop}/${cropImage}`);
 
         image.src = `/static/images/${plot.crop}/${cropImage}?`;
         growthPercentElement.textContent = `${Math.floor(growthPercent)}%`;
@@ -154,7 +152,6 @@ function getCropImage(crop, growthPercent) {
     }
 }
 
-
 async function plantCrop(plotId) {
     const farmId = localStorage.getItem("farmId");
     const data = await apiRequest(`/plots/${plotId}/plant/${selectedPlant}?farm_id=${farmId}`, {method: "POST"});
@@ -186,19 +183,6 @@ async function fertilizePlot() {
     }
 
     await refreshFarm();
-}
-
-async function sellItem(item, amount) {
-    const farmId = localStorage.getItem("farmId");
-    const data = await apiRequest(`/market/sell/${item}?amount=${amount}&farm_id=${farmId}`, {method: "POST"});
-
-    if (data === null) {
-        return;
-    }
-
-    await refreshFarm();
-    await loadMarket();
-    await loadMissions();
 }
 
 initializeGame();

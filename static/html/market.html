@@ -54,26 +54,32 @@
 
             </div>
 
-            <div class="history">
-                <h2 id="history-title">History</h2>
-                
-                <div class="price-info">
-                    <div>
-                        Current
-                        <strong id="current-price">$0</strong>
+            <div class="market-content">
+                <div class="history">
+                    <h2 id="history-title">History</h2>
+                    
+                    <div class="price-info">
+                        <div>
+                            Current
+                            <strong id="current-price">$0</strong>
+                        </div>
+                        <div>
+                            60-Day High
+                            <strong id="high-price">$0</strong>
+                        </div>
+                        <div>
+                            60-Day Low
+                            <strong id="low-price">$0</strong>
+                        </div>
                     </div>
-                    <div>
-                        60-Day High
-                        <strong id="high-price">$0</strong>
-                    </div>
-                    <div>
-                        60-Day Low
-                        <strong id="low-price">$0</strong>
-                    </div>
+
+                    <canvas id="price-chart"></canvas>
                 </div>
 
-            <canvas id="price-chart"></canvas>
-
+                <div class="market-crops">
+                    <h2>Crops</h2>
+                    <div id="market-crops"></div>
+                </div>
             </div>
         </div>
     </div>
