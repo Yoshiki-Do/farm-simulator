@@ -18,11 +18,13 @@ async function loadSeedShop() {
 
     data.seeds.sort((a, b) => a.name.localeCompare(b.name)).forEach(item => {
         const element = template.content.firstElementChild.cloneNode(true);
+        const image = element.querySelector(".item-image");
         const name = element.querySelector(".item-name");
         const price = element.querySelector(".item-price");
         const button = element.querySelector("button");
 
-        name.textContent = `${item.name} seed`;
+        image.src = `/static/images/${item.item}/${item.item}_seed.png`;
+        name.textContent = `${item.name}`;
         price.textContent = `$${item.price}`;
 
         button.textContent = "Buy 1";
@@ -66,43 +68,46 @@ async function buy10Seeds(crop) {
     await loadInventory();
 }
 
-async function loadFertilizerShop() {
-    const data = await apiRequest("/shop/fertilizer");
+async function loadItemShop() {
+    const data = await apiRequest("/shop/items");
     
     if (data === null) {
         return;
     }
 
-    const container = document.getElementById("fertilizer-shop-items");
+    const container = document.getElementById("item-shop-items");
     container.innerHTML = "";
 
-    const item = data.fertilizer;
-
     const template = document.getElementById("shop-item-template");
-    const element = template.content.firstElementChild.cloneNode(true);
 
-    const name = element.querySelector(".item-name");
-    const price = element.querySelector(".item-price");
-    const button = element.querySelector("button");
+    data.items.sort((a,b) => a.name.localeCompare(b.name)).forEach(item => {
+        const element = template.content.firstElementChild.cloneNode(true);
 
-    name.textContent = item.name;
-    price.textContent = `$${item.price}`;
+        const image = element.querySelector(".item-image");
+        const name = element.querySelector(".item-name");
+        const price = element.querySelector(".item-price");
+        const button = element.querySelector("button");
 
-    button.textContent = "Buy 1";
-    button.onclick = () => buyFertilizer();
+        image.src = `/static/images/items/${item.item}.png`;
+        name.textContent = item.name;
+        price.textContent = `$${item.price}`;
 
-    const buy10Button = document.createElement("button");
-    buy10Button.textContent = "Buy 10";
-    buy10Button.onclick = () => buy10Fertilizers();
+        button.textContent = "Buy 1";
+        button.onclick = () => buyItem(item.item);
 
-    element.appendChild(buy10Button);
+        const buy10Button = document.createElement("button");
+        buy10Button.textContent = "Buy 10";
+        buy10Button.onclick = () => buy10Items(item.item);
 
-    container.appendChild(element);
+        element.appendChild(buy10Button);
+
+        container.appendChild(element);
+    });
 }
 
-async function buyFertilizer() {
+async function buyItem(item) {
     const farmId = localStorage.getItem("farmId");
-    const data = await apiRequest(`/shop/buy-fertilizer?farm_id=${farmId}`, {method: "POST"});
+    const data = await apiRequest(`/shop/buy-item/${item}?farm_id=${farmId}`, {method: "POST"});
 
     if(data === null) {
         return;
@@ -112,12 +117,10 @@ async function buyFertilizer() {
     await loadInventory();
 }
 
-async function buy10Fertilizers() {
+async function buy10Items(item) {
     const farmId = localStorage.getItem("farmId");
 
-    const data = await apiRequest(
-        `/shop/buy-fertilizer/10?farm_id=${farmId}`,
-        {method: "POST"}
+    const data = await apiRequest(`/shop/buy-item/${item}/10?farm_id=${farmId}`, {method: "POST"}
     );
 
     if (data === null) {
@@ -133,4 +136,4 @@ loadInventory();
 loadMissions();
 loadMarket();
 loadSeedShop();
-loadFertilizerShop();
+loadItemShop();

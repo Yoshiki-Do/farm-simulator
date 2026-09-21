@@ -98,11 +98,11 @@ function createPlotElement(plot) {
         }
     }
 
-    element.onclick = function() {
+    element.onclick = async function() {
         if(plot.crop == null && selectedPlant !== null) {
-            plantCrop(plot.id);
+            await plantCrop(plot.id);
         } else if(plot.crop != null && plot.growth >= 1) {
-            harvestCrop(plot.id);
+            await harvestCrop(plot.id);
         }
     };
 

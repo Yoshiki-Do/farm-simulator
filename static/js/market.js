@@ -281,6 +281,7 @@ async function sellCrop(item, amount) {
         return;
 
     await loadFarmInfo();
+    await loadMissions();
     await loadCrops();
     await loadMarket();
     await loadHistory();

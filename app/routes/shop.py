@@ -23,14 +23,13 @@ def get_seed_shop():
     }
 
 
-@router.get("/shop/fertilizer")
-def get_fertilizer_shop():
+@router.get("/shop/items")
+def get_item_shop():
     return {
-        "fertilizer": {
-            "item": "fertilizer",
-            "name": ITEMS["fertilizer"]["name"],
-            "price": ITEMS["fertilizer"]["price"],
-        }
+        "items": [
+            {"item": item, "name": data["name"], "price": data["price"]}
+            for item, data in ITEMS.items()
+        ]
     }
 
 
@@ -88,24 +87,27 @@ def buy_seeds(crop: str, farm_id: int, amount: int, db: Session = Depends(get_db
     }
 
 
-@router.post("/shop/buy-fertilizer")
-def buy_fertilizer(farm_id: int, db: Session = Depends(get_db)):
-    return buy_fertilizers(farm_id, 1, db)
+@router.post("/shop/buy-item/{item}")
+def buy_item(item: str, farm_id: int, db: Session = Depends(get_db)):
+    return buy_items(item, farm_id, 1, db)
 
 
-@router.post("/shop/buy-fertilizer/10")
-def buy_10_fertilizers(farm_id: int, db: Session = Depends(get_db)):
-    return buy_fertilizers(farm_id, 10, db)
+@router.post("/shop/buy-item/{item}/10")
+def buy_10_items(item: str, farm_id: int, db: Session = Depends(get_db)):
+    return buy_items(item, farm_id, 10, db)
 
 
-def buy_fertilizers(farm_id: int, amount: int, db: Session = Depends(get_db)):
+def buy_items(item: str, farm_id: int, amount: int, db: Session = Depends(get_db)):
     farm = db.query(Farm).filter(Farm.id == farm_id).first()
 
     if farm is None:
         return {"message": "Farm not found"}
 
-    fertilizer_price = ITEMS["fertilizer"]["price"]
-    total_price = fertilizer_price * amount
+    if item not in ITEMS:
+        return {"error": "Unknown item"}
+
+    item_price = ITEMS[item]["price"]
+    total_price = item_price * amount
 
     if farm.money < total_price:
         return {"error": "Not enough money"}
@@ -114,16 +116,14 @@ def buy_fertilizers(farm_id: int, amount: int, db: Session = Depends(get_db)):
         db.query(Inventory)
         .filter(
             Inventory.farm_id == farm.id,
-            Inventory.item == "fertilizer",
+            Inventory.item == item,
             Inventory.type == "item",
         )
         .first()
     )
 
     if inventory is None:
-        inventory = Inventory(
-            farm_id=farm.id, item="fertilizer", type="item", quantity=0
-        )
+        inventory = Inventory(farm_id=farm.id, item=item, type="item", quantity=0)
         db.add(inventory)
 
     farm.money -= total_price
@@ -135,7 +135,7 @@ def buy_fertilizers(farm_id: int, amount: int, db: Session = Depends(get_db)):
     db.refresh(inventory)
 
     return {
-        "message": f"Bought {amount} fertilizer",
+        "message": f"Bought {amount} {item}",
         "money": farm.money,
         "item": inventory.item,
         "quantity": inventory.quantity,

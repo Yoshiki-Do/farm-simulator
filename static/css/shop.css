@@ -18,20 +18,28 @@
     gap: 10px;
 }
 
-.seed-item {
+.shop-item {
     display: flex;
     align-items: center;
     background-color: white;
     border: 2px solid #ddd;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
 }
 
-.seed-item span {
-    font-size: 18px;
+.shop-item img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    margin-right: 10px;
 }
 
-.seed-item strong {
+.shop-item span {
+    font-size: 15px;
+}
+
+.shop-item strong {
     margin-left: auto;
     margin-right: 20px;
 }

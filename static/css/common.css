@@ -252,7 +252,7 @@ body {
     box-sizing: border-box;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 5px;
     justify-content: center;
     align-content: start;
@@ -264,17 +264,17 @@ body {
 }
 
 .inventory-item {
-    width: 32px;
-    height: 32px;
-    font-size: 12px;
+    width: 48px;
+    height: 48px;
+    font-size: 11px;
     border: 1px solid #ddd;
     box-sizing: border-box;
     text-align: center;
     background-color: white;
+    position: relative;
 }
 
 .inventory-image {
-    position: relative;
     display: inline-block;
 }
 
@@ -284,9 +284,8 @@ body {
 
 .inventory-image strong {
     position: absolute;
-    right: 0px;
-    bottom: 0px;
-    padding: 2px 4px;
+    right: 1px;
+    bottom: 1px;
     font-size: 9px;
 }
 
