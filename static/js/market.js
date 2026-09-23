@@ -269,7 +269,9 @@ async function sellCrop(item, amount) {
     if (data === null)
         return;
 
-    await loadFarmInfo();
+    const farmData = await getFarmData();
+    loadFarmInfo(farmData);
+    
     await loadMissions();
     await loadCrops();
     await loadMarket();

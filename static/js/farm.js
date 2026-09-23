@@ -1,4 +1,5 @@
 let selectedPlant = null;
+let isProcessingPlot = false;
 
 async function initializeGame() {
     const data = await getFarmData();
@@ -101,10 +102,27 @@ function createPlotElement(plot) {
     }
 
     element.onclick = async function() {
-        if(plot.crop == null && selectedPlant !== null) {
-            await plantCrop(plot.id);
-        } else if(plot.crop != null && plot.growth >= 1) {
-            await harvestCrop(plot.id);
+        if (isProcessingPlot) {
+            return;
+        }
+
+        if (plot.crop == null && selectedPlant !== null) {
+            isProcessingPlot = true;
+
+            try {
+                await plantCrop(plot.id);
+            } finally {
+                isProcessingPlot = false;
+            }
+
+        } else if (plot.crop != null && plot.growth >= 1) {
+            isProcessingPlot = true;
+
+            try {
+                await harvestCrop(plot.id);
+            } finally {
+                isProcessingPlot = false;
+            }
         }
     };
 
