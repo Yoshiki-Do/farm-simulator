@@ -30,3 +30,10 @@ def calculate_market_price(previous_price, sold_amount):
     market_price = previous_price * (demand / supply)
 
     return round(market_price, 2)
+
+
+def get_season(day:int):
+    season_number = ((day - 1) // 30) % 4
+    seasons = ["spring", "summer", "fall", "winter"]
+
+    return seasons[season_number]

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from .market import generate_market_prices
 from ..database import get_db
-from ..game_logic import calculate_daily_growth, calculate_fertilizer_multiplier
+from ..game_logic import calculate_daily_growth, calculate_fertilizer_multiplier, get_season
 from ..items import CROPS, ITEMS
 from ..mission import MISSION_AMOUNT, check_mission_deadline
 from ..models import Farm, Plot, Inventory, MarketPrice, DailySales, Mission
@@ -16,7 +16,17 @@ PLOT_NUM = 25
 def get_farms(db: Session = Depends(get_db)):
     farms = db.query(Farm).order_by(Farm.id).all()
 
-    return [{"id": farm.id, "day": farm.day, "money": farm.money} for farm in farms]
+    return [
+        {
+            "id": farm.id,
+            "day": farm.day,
+            "year": ((farm.day - 1) // 120) + 1,
+            "season": get_season(farm.day),
+            "season_day": ((farm.day - 1) % 30) + 1,
+            "money": farm.money,
+        }
+        for farm in farms
+    ]
 
 
 @router.post("/farms/{farm_id}")
@@ -91,6 +101,9 @@ def get_farm(farm_id: int, db: Session = Depends(get_db)):
     result = {
         "id": farm.id,
         "day": farm.day,
+        "year": ((farm.day - 1) // 120) + 1,
+        "season": get_season(farm.day),
+        "season_day": ((farm.day - 1) % 30) + 1,
         "money": farm.money,
         "plots": [
             {

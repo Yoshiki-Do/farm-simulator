@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import Farm, Plot, Inventory
 from ..items import CROPS, ITEMS
-from ..game_logic import calculate_harvest_amount
+from ..game_logic import calculate_harvest_amount, get_season
 
 router = APIRouter()
 
@@ -48,6 +48,11 @@ def plant_crop(plot_id: int, crop: str, farm_id: int, db: Session = Depends(get_
 
     if crop not in CROPS:
         return {"error": "Unknown crop"}
+    
+    current_season = get_season(farm.day)
+    
+    if current_season not in CROPS[crop]["seasons"]:
+        return {"error": f"{CROPS[crop]["name"]} cannot be planted in {current_season}"}
 
     plot = db.query(Plot).filter(Plot.farm_id == farm.id, Plot.id == plot_id).first()
 

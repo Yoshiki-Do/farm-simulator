@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from ..database import get_db
+import random
 from ..game_logic import (
     MARKET_MIN_MULTIPLIER,
     MARKET_MAX_MULTIPLIER,
     calculate_market_price,
+    get_season,
 )
 from ..items import CROPS
 from ..mission import check_mission, update_mission_progress
@@ -195,15 +197,21 @@ def generate_market_prices(db, farm):
 
         sold_amount = previous_sales.amount if previous_sales else 0.0
 
-        if previous_price is None:
-            price = calculate_market_price(base_price, sold_amount)
+        current_season =get_season(farm.day)
+
+        if current_season in data["seasons"]:
+            if previous_price is None:
+                price = calculate_market_price(base_price, sold_amount)
+            else:
+                price = calculate_market_price(previous_price.price, sold_amount)
+
+            min_price = round(data["base_price"] * MARKET_MIN_MULTIPLIER, 2)
+            max_price = round(data["base_price"] * MARKET_MAX_MULTIPLIER, 2)
+
+            price = round(max(min_price, min(price, max_price)), 2)
+
         else:
-            price = calculate_market_price(previous_price.price, sold_amount)
-
-        min_price = round(data["base_price"] * MARKET_MIN_MULTIPLIER, 2)
-        max_price = round(data["base_price"] * MARKET_MAX_MULTIPLIER, 2)
-
-        price = round(max(min_price, min(price, max_price)), 2)
+            price = round(base_price * random.uniform(2, 2.2), 2)
 
         market_price = MarketPrice(
             farm_id=farm.id, item=item, price=price, day=farm.day

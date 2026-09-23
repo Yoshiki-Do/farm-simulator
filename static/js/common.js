@@ -8,6 +8,41 @@ async function getMarketData() {
     return await apiRequest(`/market?farm_id=${farmId}`);
 }
 
+function createFarmInfo() {
+    return `
+        <div class="status-bar">
+            <h2>Farm Info</h2>
+
+            <div class="status-box">
+                <div class="status-item">
+                    <strong id="current-year">-</strong>
+                </div>
+
+                <div class="status-item season-info">
+                    <img id="current-season-image" src="/static/images/seasons/spring.png" alt="Season">
+                    <strong id="current-season-day">-</strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Money:</span>
+                    <strong>$<span id="current-money">-</span></strong>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function loadFarmInfo(data){
+    document.getElementById("current-year").textContent = `Year: ${data.year}`;
+
+    document.getElementById("current-season-day").textContent =
+        `Day ${data.season_day}`;
+
+    document.getElementById("current-season-image").src = `/static/images/seasons/${data.season}.png`;
+
+    document.getElementById("current-money").textContent = Number(data.money).toFixed(2);
+}
+
 async function loadMissions() {
     const farmId = localStorage.getItem("farmId");
     const data = await apiRequest(`/farm/${farmId}/missions`);

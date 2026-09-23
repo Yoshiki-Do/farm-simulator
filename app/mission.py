@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from .game_logic import get_season
 from .items import CROPS
 from .models import Farm, Mission, Inventory
 
@@ -8,6 +9,11 @@ MISSION_AMOUNT = 100.0
 
 
 def check_mission(db: Session, farm: Farm, item: str, price: float):
+    current_season = get_season(farm.day)
+    
+    if current_season not in CROPS[item]["seasons"]:
+        return
+    
     base_price = CROPS[item]["base_price"]
     mission_threshold = round(base_price * MISSION_THRESHOLD, 2)
 

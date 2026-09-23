@@ -1,7 +1,14 @@
 async function loadShopInfo() {
     const data = await getFarmData();
-    document.getElementById("current-day").textContent = data.day;
-    document.getElementById("current-money-left").textContent = Number(data.money).toFixed(2);
+
+    if (data === null) {
+        return;
+    }
+
+    document.getElementById("farm-info").innerHTML = createFarmInfo();
+    
+    loadFarmInfo(data);
+
 }
 
 async function loadSeedShop() {

@@ -1,16 +1,5 @@
 let currentCrop = "carrot"
 
-async function loadFarmInfo() {
-    const data = await getFarmData();
-
-    if (data === null) {
-        return;
-    }
-
-    document.getElementById("current-day").textContent = data.day;
-    document.getElementById("current-money").textContent = Number(data.money).toFixed(2);
-}
-
 async function loadHistory() {
     const farmId = localStorage.getItem("farmId");
     const data = await apiRequest(`/market/history/${currentCrop}?farm_id=${farmId}`);
@@ -287,8 +276,20 @@ async function sellCrop(item, amount) {
     await loadHistory();
 }
 
-loadFarmInfo();
-loadMissions();
-loadMarket();
-loadHistory();
-loadCrops();
+async function initializeMarket() {
+    const data = await getFarmData();
+
+    if (data === null) {
+        return;
+    }
+
+    document.getElementById("farm-info").innerHTML = createFarmInfo();
+
+    loadFarmInfo(data);
+    await loadMissions();
+    await loadMarket();
+    await loadHistory();
+    await loadCrops();
+}
+
+initializeMarket();

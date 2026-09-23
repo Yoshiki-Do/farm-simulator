@@ -7,7 +7,7 @@ body {
 
 .container {
     max-width: 900px;
-    margin: 20px auto;
+    margin: 5px auto;
     padding: 20px;
     padding-bottom: 140px;
 }
@@ -25,6 +25,13 @@ body {
 .farm,
 .shop-main {
     min-width: 0;
+}
+
+.status-bar h2,
+.missions h2,
+.market h2,
+.inventory h2 {
+    margin: 0;
 }
 
 /* Main Menu */
@@ -67,11 +74,11 @@ body {
     box-sizing: border-box;
 }
 
-.left-sidebar > .status-bar,
+.status-bar,
 .right-sidebar > .inventory {
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 15px;
+    padding: 8px 15px 15px;
     background-color: #e5e5e5;
 }
 
@@ -87,25 +94,33 @@ body {
 }
 
 /* Status */
-.status-bar h2 {
-    margin: 5px;
-}
-
 .status-box {
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px 15px;
     background-color: white;
 }
 
 .status-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
 .status-item:last-child {
     margin-bottom: 0;
+}
+
+.season-info {
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.season-info img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 /* Mission */
@@ -114,10 +129,6 @@ body {
     border-radius: 10px;
     padding: 15px;
     background-color: #e5e5e5;
-}
-
-.missions h2 {
-    margin: 5px;
 }
 
 #missions-list {
@@ -194,10 +205,6 @@ body {
     background-color: #e5e5e5;
 }
 
-.market h2 {
-    margin: 5px;
-}
-
 .market-item-info {
     display: flex;
     align-items: center;
@@ -236,10 +243,6 @@ body {
 }
 
 /* Inventory */
-.inventory h2 {
-    margin: 5px;
-}
-
 .inventory-box {
     border: 2px solid #ddd;
     border-radius: 12px;

@@ -3,6 +3,8 @@ let selectedPlant = null;
 async function initializeGame() {
     const data = await getFarmData();
 
+    document.getElementById("farm-info").innerHTML = createFarmInfo();
+
     await loadFarm(data);
     await loadInventory(data);
     await loadMarket();
@@ -41,8 +43,8 @@ async function loadFarm(data = null) {
     if(data === null) {
         data = await getFarmData();
     }
-    document.getElementById("current-day").textContent = data.day;
-    document.getElementById("current-money").textContent = Number(data.money).toFixed(2);
+    
+    loadFarmInfo(data);
 
     if (data.game_over === 1){
         alert("Game Over");
