@@ -16,45 +16,29 @@
     
         <h1>Farm Simulator</h1>
 
-        <div class="save-slots">
+        <div class="save-slots" id="save-slots"></div>
 
-            <div class="save-slot" id="save-1">
-                <h2>Save 1</h2>
+        <template id="save-slot-template">
+            <div class="save-slot">
+                <h2></h2>
+
                 <div class="save-info">
-                    <p class="save-day">Day -</p>
-                    <p class="save-money">$ -</p>
+                    <p class="save-year">Year: -</p>
+
+                    <p class="save-season-day">
+                        <img class="save-season-image" src="/static/images/seasons/spring.png" alt="Season">
+                        Day: -
+                    </p>
+
+                    <p class="save-money">Money: $0.00</p>
                 </div>
+
                 <div class="save-buttons">
                     <button>Continue</button>
                     <button>Delete</button>
                 </div>
             </div>
-
-            <div class="save-slot" id="save-2">
-                <h2>Save 2</h2>
-                <div class="save-info">
-                    <p class="save-day">Day -</p>
-                    <p class="save-money">$ -</p>
-                </div>
-                <div class="save-buttons">
-                    <button>Continue</button>
-                    <button>Delete</button>
-                </div>
-            </div>
-
-            <div class="save-slot" id="save-3">
-                <h2>Save 3</h2>
-                <div class="save-info">
-                    <p class="save-day">Day -</p>
-                    <p class="save-money">$ -</p>
-                </div>
-                <div class="save-buttons">
-                    <button>Continue</button>
-                    <button>Delete</button>
-                </div>
-            </div>
-
-        </div>
+        </template>
 
     </div>
 

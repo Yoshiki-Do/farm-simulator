@@ -1,10 +1,11 @@
 h1 {
     text-align: center;
+    margin: 10px 0 20px;
 }
 
 .save-slots {
     display: grid;
-    grid-template-columns: repeat(3, 200px);
+    grid-template-columns: repeat(3, 220px);
     gap: 20px;
     justify-content: center;
     align-items: stretch;
@@ -14,21 +15,38 @@ h1 {
     background-color: #e5e5e5;
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
     box-sizing: border-box;
-    min-height: 220px;
+    min-height: 200px;
 
     display: flex;
     flex-direction: column;
 }
 
+.save-slot h2 {
+    margin: 0 0 15px;
+}
+
 .save-info {
-    height: 55px;
+    height: 90px;
 }
 
 .save-info p {
-    margin: 8px 0;
+    margin: 4px 0;
+}
+
+.save-season-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.save-season-image {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
 
 .save-buttons {
@@ -39,7 +57,7 @@ h1 {
 }
 
 .save-slot button {
+    width: 100%;
     padding: 10px 15px;
-    margin: 5px;
     cursor: pointer;
 }
