@@ -7,6 +7,7 @@ class Farm(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     day = Column(Integer, default=1)
+    weather = Column(String, default="sunny")
     money = Column(Float, default=100.0)
     game_over = Column(Integer, default=0)
 

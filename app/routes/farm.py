@@ -104,6 +104,7 @@ def get_farm(farm_id: int, db: Session = Depends(get_db)):
         "year": ((farm.day - 1) // 120) + 1,
         "season": get_season(farm.day),
         "season_day": ((farm.day - 1) % 30) + 1,
+        "weather": farm.weather,
         "money": farm.money,
         "plots": [
             {
@@ -180,6 +181,7 @@ def next_day(farm_id: int, db: Session = Depends(get_db)):
 
     current_season = get_season(farm.day)
     weather=get_weather(current_season)
+    farm.weather = weather
 
     plots = db.query(Plot).filter(Plot.farm_id == farm.id).all()
 
@@ -203,4 +205,9 @@ def next_day(farm_id: int, db: Session = Depends(get_db)):
 
     db.refresh(farm)
 
-    return {"day": farm.day, "money": farm.money, "game_over": farm.game_over}
+    return {
+        "day": farm.day,
+        "money": farm.money,
+        "game_over": farm.game_over,
+        "weather": weather,
+    }

@@ -21,6 +21,7 @@ function createFarmInfo() {
                 <div class="status-item season-info">
                     <img id="current-season-image" src="/static/images/seasons/spring.png" alt="Season">
                     <strong id="current-season-day">-</strong>
+                    <img id="current-weather-image" src="/static/images/weather/sunny.png" alt="Weather">
                 </div>
 
                 <div class="status-item">
@@ -59,6 +60,8 @@ function loadFarmInfo(data){
         `Day ${data.season_day}`;
 
     document.getElementById("current-season-image").src = `/static/images/seasons/${data.season}.png`;
+
+    document.getElementById("current-weather-image").src = `/static/images/weather/${data.weather}.png`;
 
     document.getElementById("current-money").textContent = Number(data.money).toFixed(2);
 }
