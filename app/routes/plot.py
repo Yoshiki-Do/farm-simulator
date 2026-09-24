@@ -214,12 +214,13 @@ def harvest_crop(plot_id: int, farm_id: int, db: Session = Depends(get_db)):
         inventory = Inventory(farm_id=farm.id, item=crop, type="crop", quantity=0)
         db.add(inventory)
 
-    harvest_amount = calculate_harvest_amount(crop, plot.fertilizer_multiplier)
+    harvest_amount = calculate_harvest_amount(crop, plot.fertilizer_multiplier, plot.weather_multiplier)
     inventory.quantity = round(inventory.quantity + harvest_amount, 2)
 
     plot.crop = None
     plot.growth = 0.0
     plot.fertilizer_multiplier = 1.0
+    plot.weather_multiplier = 1.0
 
     db.commit()
 

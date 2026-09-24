@@ -2,7 +2,13 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from .market import generate_market_prices
 from ..database import get_db
-from ..game_logic import calculate_daily_growth, calculate_fertilizer_multiplier, get_weather, get_season
+from ..game_logic import (
+    WEATHER_AMOUNT_MULTIPLIER,
+    calculate_daily_growth,
+    calculate_fertilizer_multiplier,
+    get_weather,
+    get_season,
+)
 from ..items import CROPS, ITEMS
 from ..mission import MISSION_AMOUNT, check_mission_deadline
 from ..models import Farm, Plot, Inventory, MarketPrice, DailySales, Mission
@@ -180,8 +186,9 @@ def next_day(farm_id: int, db: Session = Depends(get_db)):
     check_mission_deadline(db, farm)
 
     current_season = get_season(farm.day)
-    weather=get_weather(current_season)
+    weather = get_weather(current_season)
     farm.weather = weather
+    weather_multiplier = WEATHER_AMOUNT_MULTIPLIER[weather]
 
     plots = db.query(Plot).filter(Plot.farm_id == farm.id).all()
 
@@ -191,6 +198,9 @@ def next_day(farm_id: int, db: Session = Depends(get_db)):
         if plot.crop is not None and plot.growth < 1.0:
             growth_rate = CROPS[plot.crop]["growth_rate"]
             daily_growth = calculate_daily_growth(growth_rate, fertilizer,weather)
+            plot.weather_multiplier = (
+                plot.weather_multiplier or 1.0
+            ) * weather_multiplier
             if fertilizer:
                 daily_multiplier = calculate_fertilizer_multiplier()
                 plot.fertilizer_multiplier *= daily_multiplier

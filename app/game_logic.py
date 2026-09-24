@@ -9,7 +9,8 @@ WEATHER_PROBABILITIES = {
     "fall": {"sunny": 0.40, "cloudy":0.25,"rainy":0.25,"snowy":0.01,"windy":0.04},
     "winter": {"sunny": 0.15, "cloudy":0.40,"rainy":0.10,"snowy":0.30,"windy":0.05},
 }
-WEATHER_GROWTH_MULTIPLIER ={"sunny":1.05,"cloudy":1.00,"rainy":0.90,"snowy":0.80,"windy":0.95}
+WEATHER_GROWTH_MULTIPLIER = {"sunny":1.05,"cloudy":1.00,"rainy":0.90,"snowy":0.80,"windy":0.95}
+WEATHER_AMOUNT_MULTIPLIER = {"sunny":1.05,"cloudy":1.00,"rainy":0.90,"snowy":0.80,"windy":0.90}
 
 
 def calculate_daily_growth(growth_rate, fertilizer=False, weather="cloudy"):
@@ -22,16 +23,15 @@ def calculate_daily_growth(growth_rate, fertilizer=False, weather="cloudy"):
 
     return growth
 
-
 def calculate_fertilizer_multiplier():
     return random.uniform(1.1, 1.5)
 
-
-def calculate_harvest_amount(crop, fertilizer_multiplier=1.0):
+def calculate_harvest_amount(crop, fertilizer_multiplier=1.0,weather_multiplier=1.0):
     base_amount = CROPS[crop]["base_harvest_amount"]
     variation = random.uniform(0.5, 2.0)
-    return round(base_amount * variation * fertilizer_multiplier, 2)
-
+    return round(
+        base_amount * variation * fertilizer_multiplier * weather_multiplier, 2
+    )
 
 def calculate_market_price(previous_price, sold_amount):
     BASE_DEMAND, BASE_SUPPLY = 500, 495
