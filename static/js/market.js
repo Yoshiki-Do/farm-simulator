@@ -279,13 +279,15 @@ async function sellCrop(item, amount) {
 }
 
 async function initializeMarket() {
+    document.getElementById("farm-info").innerHTML = createFarmInfo();
+    document.getElementById("missions-box").innerHTML = createMissions();
+    document.getElementById("market-box").innerHTML = createMarket();
+
     const data = await getFarmData();
 
     if (data === null) {
         return;
     }
-
-    document.getElementById("farm-info").innerHTML = createFarmInfo();
 
     loadFarmInfo(data);
     await loadMissions();

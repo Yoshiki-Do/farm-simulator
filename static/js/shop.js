@@ -1,11 +1,13 @@
 async function loadShopInfo() {
+    document.getElementById("farm-info").innerHTML = createFarmInfo();
+    document.getElementById("missions-box").innerHTML = createMissions();
+    document.getElementById("market-box").innerHTML = createMarket();
+
     const data = await getFarmData();
 
     if (data === null) {
         return;
     }
-
-    document.getElementById("farm-info").innerHTML = createFarmInfo();
     
     loadFarmInfo(data);
 

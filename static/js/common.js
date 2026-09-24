@@ -32,6 +32,26 @@ function createFarmInfo() {
     `;
 }
 
+function createMissions() {
+    return `
+        <div class="missions-box">
+            <div class="missions">
+                <h2>Missions</h2>
+                <div id="missions-list">Loading...</div>
+            </div>
+        </div>
+    `;
+}
+
+function createMarket() {
+    return `
+        <div class="market">
+            <h2>Market Prices</h2>
+            <div id="market-prices">Loading...</div>
+        </div>
+    `;
+}
+
 function loadFarmInfo(data){
     document.getElementById("current-year").textContent = `Year: ${data.year}`;
 

@@ -2,9 +2,11 @@ let selectedPlant = null;
 let isProcessingPlot = false;
 
 async function initializeGame() {
-    const data = await getFarmData();
-
     document.getElementById("farm-info").innerHTML = createFarmInfo();
+    document.getElementById("missions-box").innerHTML = createMissions();
+    document.getElementById("market-box").innerHTML = createMarket();
+
+    const data = await getFarmData();
 
     await loadFarm(data);
     await loadInventory(data);
