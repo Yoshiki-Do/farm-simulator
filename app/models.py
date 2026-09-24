@@ -20,6 +20,7 @@ class Plot(Base):
     growth = Column(Float, default=0.0)
     fertilizer_days = Column(Float, default=0.0)
     fertilizer_multiplier = Column(Float, default=1.0)
+    weather_multiplier = Column(Float, default=1.0)
 
 
 class Inventory(Base):
